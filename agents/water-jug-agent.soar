@@ -1,0 +1,3 @@
+pushd water-jug-agent
+source water-jug-agent_source.soar
+popd

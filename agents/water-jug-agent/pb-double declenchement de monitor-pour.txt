@@ -1,0 +1,121 @@
+Il y a un double déclenchement de la règle water-jug*monitor*operator-application*pour
+
+raison : le Retracting de water-jug*propose*pour qui sert de condition au monitor n'est pas encore effectué car réalisé en parallèle !
+
+trace :
+--- apply phase ---
+
+--- Firing Productions (IE) For State At Depth 1 ---
+Firing water-jug*monitor*operator-application*pour
+--> 
+ POUR(3:3,5:0)
+--- Change Working Memory (IE) ---
+
+--- Firing Productions (PE) For State At Depth 1 ---
+Firing water-jug*apply*pour*will-empty-empty-jug
+--> 
+(J1 ^contents 0 - :O)
+(J1 ^contents 3 + :O)
+(J2 ^contents 3 - :O)
+(J2 ^contents 0 + :O)
+--- Change Working Memory (PE) ---
+=>WM: (65: J2 ^contents 0)
+=>WM: (64: J1 ^contents 3)
+<=WM: (54: J2 ^contents 3)
+<=WM: (22: J1 ^contents 0)
+
+--- Firing Productions (IE) For State At Depth 1 ---
+Firing water-jug*monitor*operator-application*pour
+--> 
+ POUR(3:0,5:3)
+Firing water-jug*monitor*state
+--> 
+ 3:0 5:3
+Firing water-jug*propose*empty
+--> 
+(O9 ^empty-jug J1 +)
+(O9 ^name empty +)
+(S1 ^operator O9 =)
+(S1 ^operator O9 +)
+Firing water-jug-agent*elaborate*empty
+--> 
+(J1 ^empty 2 +)
+Firing water-jug-agent*elaborate*empty
+--> 
+(J2 ^empty 3 +)
+Retracting water-jug-agent*elaborate*empty
+--> 
+(J1 ^empty 5 +)
+Retracting water-jug-agent*elaborate*empty
+--> 
+(J2 ^empty 0 +)
+Retracting water-jug*propose*empty
+--> 
+(O8 ^empty-jug J2 +)
+(O8 ^name empty +)
+(S1 ^operator O8 =)
+(S1 ^operator O8 +)
+Retracting water-jug*propose*pour
+--> 
+(O7 ^fill-jug J1 +)
+(O7 ^empty-jug J2 +)
+(O7 ^name pour +)
+(S1 ^operator O7 =)
+(S1 ^operator O7 +)
+--- Change Working Memory (IE) ---
+=>WM: (70: S1 ^operator O9 +)
+=>WM: (69: J2 ^empty 3)
+=>WM: (68: J1 ^empty 2)
+=>WM: (67: O9 ^empty-jug J1)
+=>WM: (66: O9 ^name empty)
+<=WM: (61: S1 ^operator O7 +)
+<=WM: (63: S1 ^operator O7)
+<=WM: (62: S1 ^operator O8 +)
+<=WM: (60: J2 ^empty 0)
+<=WM: (29: J1 ^empty 5)
+<=WM: (59: O8 ^empty-jug J2)
+<=WM: (58: O8 ^name empty)
+<=WM: (57: O7 ^fill-jug J1)
+<=WM: (56: O7 ^empty-jug J2)
+<=WM: (55: O7 ^name pour)
+
+--- Firing Productions (IE) For State At Depth 1 ---
+Firing water-jug*propose*fill
+--> 
+(O10 ^fill-jug J1 +)
+(O10 ^name fill +)
+(S1 ^operator O10 =)
+(S1 ^operator O10 +)
+Firing water-jug*propose*fill
+--> 
+(O11 ^fill-jug J2 +)
+(O11 ^name fill +)
+(S1 ^operator O11 =)
+(S1 ^operator O11 +)
+Firing water-jug*propose*pour
+--> 
+(O12 ^fill-jug J2 +)
+(O12 ^empty-jug J1 +)
+(O12 ^name pour +)
+(S1 ^operator O12 =)
+(S1 ^operator O12 +)
+Retracting water-jug*propose*fill
+--> 
+(O2 ^fill-jug J1 +)
+(O2 ^name fill +)
+(S1 ^operator O2 =)
+(S1 ^operator O2 +)
+--- Change Working Memory (IE) ---
+=>WM: (80: S1 ^operator O12 +)
+=>WM: (79: S1 ^operator O11 +)
+=>WM: (78: S1 ^operator O10 +)
+=>WM: (77: O12 ^fill-jug J2)
+=>WM: (76: O12 ^empty-jug J1)
+=>WM: (75: O12 ^name pour)
+=>WM: (74: O11 ^fill-jug J2)
+=>WM: (73: O11 ^name fill)
+=>WM: (72: O10 ^fill-jug J1)
+=>WM: (71: O10 ^name fill)
+<=WM: (35: S1 ^operator O2 +)
+<=WM: (32: O2 ^fill-jug J1)
+<=WM: (31: O2 ^name fill)

@@ -1,0 +1,16 @@
+§4.11
+
+water-jug*select*operator*avoid*inverse*pour
+If the task is water-jug and the last operator is pour from one jug then
+avoid a pour the opposite way.
+
+=> pas sur, par exemple avec :
+
+état initial : j1=4/5 et j2 =1/3
+action 1 = pour j1 => j2. new-state = j1=2/5 et j2 =3/3
+action 2 = pour j2 => j1. new-state = j1=5/5 et j2 =0/3
+
+Ce qui ne correspond pas à l'état initial et est intéressant.
+
+
+

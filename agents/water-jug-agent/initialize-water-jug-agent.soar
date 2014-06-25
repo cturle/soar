@@ -1,0 +1,28 @@
+sp {water-jug*propose*initialize-water-jug-agent
+   (state <s> ^type state
+             -^name)
+-->
+   (<s> ^operator <o> +)
+   (<o> ^name initialize-water-jug-agent)
+}
+
+sp {water-jug*apply*initialize-water-jug-agent
+   (state <s> ^operator.name initialize-water-jug-agent)
+-->
+   (<s> ^name water-jug-agent
+        ^jug <j1>
+        ^jug <j2>)
+   (<j1> ^volume 5
+         ^contents 0)
+   (<j2> ^volume 3
+         ^contents 0)
+}
+
+sp {water-jug*apply*initialize*create*desired-state
+   (state <s> ^operator.name initialize-water-jug-agent)
+-->
+   (<s> ^desired.jug <k>)
+   (<k> ^volume 3
+        ^contents 1)
+}
+

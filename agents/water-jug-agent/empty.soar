@@ -1,0 +1,65 @@
+## PROPOSE
+
+sp {water-jug*propose*empty
+   (state <s> ^name water-jug-agent
+              ^jug <j>)
+   (<j> ^contents > 0)
+   -->
+   (<s> ^operator <o> + =)
+   (<o> ^name empty
+        ^empty-jug <j>)
+}
+
+## SELECT
+
+sp {water-jug*select*operator*avoid*inverse*empty
+   (state <s> ^name water-jug-agent
+              ^operator <o> +
+              ^last-operator <lo>)
+   (<o> ^name empty ^empty-jug <i>)
+   (<lo> ^name fill ^fill-jug <i>)
+-->
+   (<s> ^operator <o> <)
+}
+
+## APPLY
+
+# water-jug*apply*empty
+# If the task is water-jug and the empty operator is selected for a given jug,
+# then set that jug’s contents to be 0 and its empty to be its volume.
+
+sp {water-jug*apply*empty
+   (state <s> ^name water-jug-agent
+              ^operator <o>
+              ^jug <j>)
+   (<o> ^name empty
+        ^empty-jug <j>)
+   (<j> ^volume <volume>
+        ^contents <contents>)
+   -->
+   (<j> ^contents 0
+        ^contents <contents> -)
+}
+
+sp {water-jug*apply*empty*record*last-operator
+   (state <s> ^name water-jug-agent
+              ^operator <o>)
+   (<o> ^name empty
+        ^empty-jug <fj>)
+-->
+   (<s> ^last-operator <last-op>)
+   (<last-op> ^name empty
+              ^empty-jug <fj>)
+}
+
+sp {water-jug*apply*empty*remove*last-operator
+   (state <s> ^name water-jug-agent
+              ^operator <o>
+              ^last-operator <last-op>)
+   (<o> ^name empty
+        ^empty-jug <fj>)
+   -(<last-op> ^name empty
+               ^empty-jug <fj>)
+-->
+   (<s> ^last-operator <last-op> -)
+}

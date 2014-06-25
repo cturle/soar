@@ -1,0 +1,92 @@
+## PROPOSE
+
+sp {water-jug*propose*pour
+   (state <s> ^name water-jug-agent
+              ^jug <i>
+              ^jug {<j> <> <i>})
+   (<i> ^contents > 0)
+   (<j> ^empty > 0)
+   -->
+   (<s> ^operator <o> + =)
+   (<o> ^name pour
+        ^empty-jug <i>
+        ^fill-jug <j>)
+}
+
+## SELECT
+
+sp {water-jug*select*avoid*inverse*pour
+   (state <s> ^name water-jug-agent
+              ^operator <o> +
+              ^last-operator <lo>)
+   (<o> ^name pour ^fill-jug <j>)
+   (<lo> ^name pour ^empty-jug <j>)
+-->
+   (<s> ^operator <o> <)
+}
+
+## APPLY
+
+sp {water-jug*apply*pour*will-empty-empty-jug
+   (state <s> ^name water-jug-agent
+              ^operator <o>)
+   (<o> ^name pour
+        ^empty-jug <i>
+        ^fill-jug <j>)
+   (<i> ^volume <ivol>
+        ^contents { <icon> <= <jempty> })
+   (<j> ^volume <jvol>
+        ^contents <jcon>
+        ^empty <jempty>)
+   -->
+   (<i> ^contents 0
+        ^contents <icon> -)
+   (<j> ^contents (+ <jcon> <icon>)
+        ^contents <jcon> -)
+}
+
+sp {water-jug*apply*pour*will-not-empty-empty-jug
+   (state <s> ^name water-jug-agent
+              ^operator <o>)
+   (<o> ^name pour
+        ^empty-jug <i>
+        ^fill-jug <j>)
+   (<i> ^volume <ivol>
+        ^contents { <icon> > <jempty> })
+   (<j> ^volume <jvol>
+        ^contents <jcon>
+        ^empty <jempty>)
+   -->
+   (<i> ^contents (- <icon> <jempty>)
+        ^contents <icon> -)
+   (<j> ^contents <jvol>
+        ^contents <jcon> -)
+}
+
+sp {water-jug*apply*pour*record*last-operator
+   (state <s> ^name water-jug-agent
+              ^operator <o>)
+   (<o> ^name pour
+        ^fill-jug <fj>
+        ^empty-jug <ej>)
+-->
+   (<s> ^last-operator <last-op>)
+   (<last-op> ^name pour
+              ^fill-jug <fj>
+              ^empty-jug <ej>)
+}
+
+sp {water-jug*apply*pour*remove*last-operator
+   (state <s> ^name water-jug-agent
+              ^operator <o>
+              ^last-operator <last-op>)
+   (<o> ^name pour
+        ^fill-jug <fj>
+        ^empty-jug <ej>)
+   -(<last-op> ^name pour
+               ^fill-jug <fj>
+               ^empty-jug <ej>)
+-->
+   (<s> ^last-operator <last-op> -)
+}
+
