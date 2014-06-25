@@ -1,0 +1,55 @@
+## PROPOSE
+#sp {tuto2-eater*propose*move-north
+#   (state <s> ^type state ^io.input-link <il>)
+#   (<il> ^localisation.north <c>)
+#  -(<c> ^content wall)
+#-->
+#   (<s> ^operator <o> +)
+#   (<o> ^move.dir north)
+#}
+
+sp {tuto2-eater*propose*move-north*anyway
+   (state <s> ^type state ^io.input-link.eater <e>)
+   (<e> ^x <x> ^y <y>)
+-->
+   (<s> ^operator <o> +)
+   (<o> ^name move-north)
+}
+
+
+## SELECT
+# sp {tuto2-eater*select*move-north
+#   (state <s> ^operator <o> +)
+#-->
+#   (<s> ^operator <o> =)
+#}
+
+
+## APPLY
+sp {tuto2-eater*apply*move-north
+   (state <s> ^operator.name move-north ^io.output-link <ol>)
+-->
+   (<ol> ^move.direction north)
+}
+
+sp {tuto2-eater*apply*move-north*remove-move
+   (state <s> ^operator.name move-north
+              ^io.output-link <out>)
+   (<out> ^move <move>)
+   (<move> ^status complete)
+-->
+   (<out> ^move <move> -)
+}
+
+#sp {tuto2-eater*apply*move-north
+#   (state <s> ^operator <o>
+#              ^io <io>)
+#   (<io> ^output-link <out>)
+#   (<o> ^name move-north)
+#-->
+#   (<out> ^move <move>)
+#   (<move> ^direction north)
+#}
+
+
+

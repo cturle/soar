@@ -1,0 +1,3 @@
+pushd tuto2-eater
+source tuto2-eater_source.soar
+popd
